@@ -24,12 +24,14 @@ def __processdata__(x):
                  for Dic in dLl:
                      obj = data[Dic]
 
-                     #time_string=[]
-                     #colon = ':'
-                     #for x in obj['when']:
-                      #   if x not in colon:
-                       #     time_string.append(x)
-                     #obj['when']= ''.join(time_string)
+                     time_string=[]
+                     
+                     for x in obj['when']:
+                         if x =='-':
+                            time_string.append('/')
+                         elif x not =='-':
+                             time.string.append(x)
+                     obj['when']= ''.join(time_string)
                      
                      if obj['direction']== 'Towards':
                          obj['direction'] = '1'
@@ -42,25 +44,25 @@ def __processdata__(x):
                          
 
                      decimgo  = base64.b64decode(obj['overviewImageB64'])
-                     pimgo = 'overview'+s(obj['plate'])+s(obj['eventID'])+'.jpg'
+                     pimgo = s(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
                      with open(pimgo, 'wb') as f:
                          f.write(decimgo)
                                
                      decimgpch = base64.b64decode(obj['patchImageB64'])
-                     pimgpch = 'patch'+s(obj['plate'])+s(obj['eventID'])+'.jpg'
+                     pimgpch = s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
                      with open(pimgpch, 'wb') as f:
                          f.write(decimgpch)
 
                      decimgplt = base64.b64decode(obj['plateImageB64'])
-                     plate = 'plate'+s(obj['plate'])+s(obj['eventID'])+'.jpg'
+                     plate = s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR+'+'.jpg'
                      with open(plate, 'wb') as f:
                          f.write(decimgplt)
                      
                      rex = 'C:\rex'
                      File = open('rex.csv', 'a')
-                     File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+s(obj['confidence'])+','+rex+pimgo+'\n')
+                     File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
                                                                                                
-                     iD = open('eventId.txt', 'r+')
+                     iD = open('c:\REX\eventId.txt', 'r+')
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
                      iD.close()
@@ -70,7 +72,7 @@ def __processdata__(x):
 
 last_event = 0
 Event_ID_List = []
-Event_ID_File = open('eventId.txt')
+Event_ID_File = open('C:\REX\eventId.txt')
 for eventID in Event_ID_File:
                 Event_ID_List.append(int(eventID))
 Event_ID_File.close()
@@ -82,7 +84,7 @@ Event_ID_File.close()
 
 while True:
     
-    Event_ID_File = open('eventId.txt')                                                                                                            
+    Event_ID_File = open('C:\REX\eventId.txt')                                                                                                            
     for ID in Event_ID_File:
             if int(ID) not in Event_ID_List:
                     Event_ID_List.append(int(ID))
@@ -112,5 +114,4 @@ while True:
             print last_event
     
     
-
 
