@@ -54,11 +54,11 @@ C                 for Dic in dLl:
                          f.write(decimgpch)
 
                      decimgplt = base64.b64decode(obj['plateImageB64'])
-                     plate = s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR+'+'.jpg'
+                     plate = s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
                      with open(plate, 'wb') as f:
                          f.write(decimgplt)
                      
-                     rex = 'C:\rex'
+                     rex = 'C:\REX'
                      File = open('C:\REX\REX.csv', 'a')
                      File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
                                                                                                
