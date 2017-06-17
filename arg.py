@@ -1,7 +1,5 @@
 #########Comment this code ###########
 
-
-
 import json
 import requests
 import base64
@@ -44,17 +42,17 @@ def __processdata__(x):
                          
 
                      decimgo  = base64.b64decode(obj['overviewImageB64'])
-                     pimgo = s(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
+                     pimgo = 'C:\REX\IMAGE\'+(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
                      with open(pimgo, 'wb') as f:
                          f.write(decimgo)
                                
                      decimgpch = base64.b64decode(obj['patchImageB64'])
-                     pimgpch = s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
+                     pimgpch = 'C:\REX\IMAGE\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
                      with open(pimgpch, 'wb') as f:
                          f.write(decimgpch)
 
                      decimgplt = base64.b64decode(obj['plateImageB64'])
-                     plate = s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
+                     plate = 'C:\REX\IMAGE\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
                      with open(plate, 'wb') as f:
                          f.write(decimgplt)
                      
