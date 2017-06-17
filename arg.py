@@ -21,7 +21,7 @@ def __processdata__(x):
                  for x in data:
                      dLl.append(dL)
                      dL = dL+1
-                 for Dic in dLl:
+C                 for Dic in dLl:
                      obj = data[Dic]
 
                      time_string=[]
@@ -59,10 +59,10 @@ def __processdata__(x):
                          f.write(decimgplt)
                      
                      rex = 'C:\rex'
-                     File = open('c:\REX\REX.csv', 'a')
+                     File = open('C:\REX\REX.csv', 'a')
                      File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
                                                                                                
-                     iD = open('c:\REX\eventId.txt', 'r+')
+                     iD = open('C:\REX\eventId.txt', 'r+')
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
                      iD.close()
