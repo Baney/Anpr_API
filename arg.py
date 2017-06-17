@@ -21,7 +21,7 @@ def __processdata__(x):
                  for x in data:
                      dLl.append(dL)
                      dL = dL+1
-C                 for Dic in dLl:
+                 for Dic in dLl:
                      obj = data[Dic]
 
                      time_string=[]
