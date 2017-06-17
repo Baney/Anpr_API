@@ -59,7 +59,7 @@ def __processdata__(x):
                          f.write(decimgplt)
                      
                      rex = 'C:\rex'
-                     File = open('rex.csv', 'a')
+                     File = open('c:\REX\REX.csv', 'a')
                      File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
                                                                                                
                      iD = open('c:\REX\eventId.txt', 'r+')
