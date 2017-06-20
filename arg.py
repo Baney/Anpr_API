@@ -22,14 +22,16 @@ def __processdata__(x):
                  for Dic in dLl:
                      obj = data[Dic]
 
-                     time_string=[]
                      
-                     for x in obj['when']:
-                         if x =='-':
-                            time_string.append('/')
-                         elif x not =='-':
-                             time.string.append(x)
-                     obj['when']= ''.join(time_string)
+                     time = obj['when'][10:23]
+                     rev = obj['when'][0:10]
+                     a = rev[0:4]
+                     b = rev[5:7]
+                     c = rev[8:11]
+                     d = '/'
+                     rev_date = c+d+b+d+a
+                     obj['when']= rev_date+time
+                     print obj['when']
                      
                      if obj['direction']== 'Towards':
                          obj['direction'] = '1'
@@ -42,17 +44,17 @@ def __processdata__(x):
                          
 
                      decimgo  = base64.b64decode(obj['overviewImageB64'])
-                     pimgo = 'C:\REX\IMAGE\'+(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
+                     pimgo = 'C:\REX\IMAGES\\' +s(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
                      with open(pimgo, 'wb') as f:
                          f.write(decimgo)
                                
-                     decimgpch = base64.b64decode(obj['patchImageB64'])
-                     pimgpch = 'C:\REX\IMAGE\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
+                     decimgpch = base64.b64decode(obj['plateImageB64'])
+                     pimgpch = 'C:\REX\IMAGES\\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
                      with open(pimgpch, 'wb') as f:
                          f.write(decimgpch)
 
                      decimgplt = base64.b64decode(obj['plateImageB64'])
-                     plate = 'C:\REX\IMAGE\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
+                     plate = 'C:\REX\IMAGES\\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
                      with open(plate, 'wb') as f:
                          f.write(decimgplt)
                      
@@ -100,8 +102,12 @@ while True:
                             print 'no new data'
                             
                     elif type(json.loads(x.text))== list:
-                            print 'processing data'
+                        try:
                             __processdata__(str(last_event))
+                            print 'processing data'
+                        except:
+                            print 'function issue'
+                            break
                             
                              
             if str(x) == '<Response [404]>':
@@ -112,4 +118,3 @@ while True:
             print last_event
     
     
-
