@@ -34,10 +34,10 @@ def __processdata__(x):
                      print obj['when']
                      
                      if obj['direction']== 'Towards':
-                         obj['direction'] = '1'
+                         obj['direction'] = '0'
                         
                      elif obj['direction']=='Away':
-                         obj['direction'] ='0'
+                         obj['direction'] ='1'
                          
                      elif obj['direction']=='Stationary':
                          obj['direction']='3'
