@@ -61,7 +61,7 @@ def __processdata__(x):
                      rex = 'C:\REX'
                      File = open('C:\REX\REX.csv', 'a')
                      File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
-                                                                                               
+#                                                                                               
                      iD = open('C:\REX\eventId.txt', 'r+')
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
@@ -99,19 +99,20 @@ while True:
             x = requests.get('http://85.236.147.11:8083/api/geniecctv/ANPR?limit=5&after='+str(last_event))
             if str(x) == '<Response [200]>':
                     if type(json.loads(x.text))== unicode:
-                            print 'no new data'
+                            #print 'no new data'
+                            break
                             
                     elif type(json.loads(x.text))== list:
                         try:
                             __processdata__(str(last_event))
-                            print 'processing data'
+                            #print 'processing data'
                         except:
                             print 'function issue'
                             break
                             
                              
             if str(x) == '<Response [404]>':
-                    print 'shit is mixed up'
+                    print 'Response [404]'
             
     except:
             print ' it all over goodbye!!!'
