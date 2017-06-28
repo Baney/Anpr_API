@@ -97,11 +97,11 @@ while True:
     try:
             x = requests.get('http://85.236.147.11:8083/api/geniecctv/ANPR?limit=5&after='+str(last_event))
             if str(x) == '<Response [200]>':
-                    if type(json.loads(x.text))== unicode:
-                            #print 'no new data'
-                            break
+                    #if type(json.loads(x.text))== unicode:
+                     #       print 'no new data'
+                      #      break
                             
-                    elif type(json.loads(x.text))== list:
+                    if type(json.loads(x.text))== list:
                         try:
                             __processdata__(str(last_event))
                             #print 'processing data'
@@ -110,7 +110,7 @@ while True:
                             break
                             
                              
-            if str(x) == '<Response [404]>':
+             elif str(x) == '<Response [404]>':
                     print 'Response [404]'
             
     except:
