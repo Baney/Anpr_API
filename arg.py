@@ -31,7 +31,7 @@ def __processdata__(x):
                      d = '/'
                      rev_date = c+d+b+d+a
                      obj['when']= rev_date+time
-                     print obj['when']
+                     
                      
                      if obj['direction']== 'Towards':
                          obj['direction'] = '0'
@@ -66,7 +66,7 @@ def __processdata__(x):
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
                      iD.close()
-
+                     print obj['plate']
 
 
 
