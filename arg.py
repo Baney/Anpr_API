@@ -60,8 +60,7 @@ def __processdata__(x):
                      
                      rex = 'C:\REX'
                      File = open('C:\REX\REX.csv', 'a')
-                     File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')
-#                                                                                               
+                     File.write(s(obj['cameraID'])+','+s(obj['direction'])+','+s(obj['confidence'])+','+s(obj['plate'])+','+s(obj['when'][0:10])+','+s(obj['when'][11:23])+','+pimgpch+','+plate+','+pimgo+'\n')                                                                                               
                      iD = open('C:\REX\eventId.txt', 'r+')
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
