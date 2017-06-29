@@ -1,3 +1,4 @@
+
 #########Comment this code ###########
 
 import json
@@ -31,7 +32,7 @@ def __processdata__(x):
                      d = '/'
                      rev_date = c+d+b+d+a
                      obj['when']= rev_date+time
-                     
+                     #Print obj['plate'] + obj['when']
                      
                      if obj['direction']== 'Towards':
                          obj['direction'] = '0'
@@ -65,7 +66,7 @@ def __processdata__(x):
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
                      iD.close()
-                     print obj['plate']
+                     print obj['plate'] + ' ' + obj['when']
 
 
 
@@ -97,9 +98,9 @@ while True:
     try:
             x = requests.get('http://85.236.147.11:8083/api/geniecctv/ANPR?limit=5&after='+str(last_event))
             if str(x) == '<Response [200]>':
-                    #if type(json.loads(x.text))== unicode:
+                    if type(json.loads(x.text))== unicode:
                      #       print 'no new data'
-                      #      break
+                            break
                             
                     if type(json.loads(x.text))== list:
                         try:
