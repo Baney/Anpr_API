@@ -1,10 +1,10 @@
-
 #########Comment this code ###########
 
 import json
 import requests
 import base64
-#import time
+import time
+import os
 
 
         
@@ -12,7 +12,7 @@ import base64
 
 
 def __processdata__(x):
-                 get_json_from_anpr = requests.get('http://85.236.147.11:8083/api/geniecctv/ANPR?limit=5&after='+x)
+                 get_json_from_anpr = requests.get('http://127.0.0.1:8083/api/geniecctv/ANPR?limit=5&after='+x)
                  s =str
                  data = json.loads(get_json_from_anpr.text)
                  dL = 0
@@ -22,7 +22,7 @@ def __processdata__(x):
                      dL = dL+1
                  for Dic in dLl:
                      obj = data[Dic]
-
+                     
                      
                      time = obj['when'][10:23]
                      rev = obj['when'][0:10]
@@ -32,7 +32,6 @@ def __processdata__(x):
                      d = '/'
                      rev_date = c+d+b+d+a
                      obj['when']= rev_date+time
-                     #Print obj['plate'] + obj['when']
                      
                      if obj['direction']== 'Towards':
                          obj['direction'] = '0'
@@ -42,20 +41,32 @@ def __processdata__(x):
                          
                      elif obj['direction']=='Stationary':
                          obj['direction']='3'
+
+                     
+                     whenstr = c+b+a+'\\'
+                     
+
+                     if os.access('C:\\REX\\IMAGES\\'+whenstr, os.F_OK) is False:
+                         os.makedirs('C:\\REX\\IMAGES\\'+whenstr)
+
+                         
+                     
+                     folder = 'C:\\REX\\IMAGES\\'+whenstr
+                     
                          
 
                      decimgo  = base64.b64decode(obj['overviewImageB64'])
-                     pimgo = 'C:\REX\IMAGES\\' +s(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
+                     pimgo = folder + s(obj['plate'])+'_'+s(obj['eventID'])+'_OVW'+'.jpg'
                      with open(pimgo, 'wb') as f:
                          f.write(decimgo)
                                
                      decimgpch = base64.b64decode(obj['plateImageB64'])
-                     pimgpch = 'C:\REX\IMAGES\\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
+                     pimgpch = folder + s(obj['plate'])+'_'+s(obj['eventID'])+'_PCH'+'.jpg'
                      with open(pimgpch, 'wb') as f:
                          f.write(decimgpch)
 
                      decimgplt = base64.b64decode(obj['plateImageB64'])
-                     plate = 'C:\REX\IMAGES\\'+s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
+                     plate = folder + s(obj['plate'])+'_'+s(obj['eventID'])+'_LPR'+'.jpg'
                      with open(plate, 'wb') as f:
                          f.write(decimgplt)
                      
@@ -66,7 +77,7 @@ def __processdata__(x):
                      iD.write(s(obj['eventID']))
                      last_event  = int(obj['eventID'])                                                                                             
                      iD.close()
-                     print obj['plate'] + ' ' + obj['when']
+                     
 
 
 
@@ -90,28 +101,29 @@ while True:
                     Event_ID_List.append(int(ID))
     Event_ID_File.close()
     last_event = max(Event_ID_List)
-    #print last_event
+    
     
     #######################################################################################         
     
     
     try:
-            x = requests.get('http://85.236.147.11:8083/api/geniecctv/ANPR?limit=5&after='+str(last_event))
+            x = requests.get('http://127.0.0.1:8083/api/geniecctv/ANPR?limit=5&after='+str(last_event))
             if str(x) == '<Response [200]>':
                     if type(json.loads(x.text))== unicode:
-                     #       print 'no new data'
-                            break
+                           time.sleep(5)
+                           
+                           
                             
-                    if type(json.loads(x.text))== list:
+                    elif type(json.loads(x.text))== list:
                         try:
                             __processdata__(str(last_event))
-                            #print 'processing data'
+                            print 'processing data'
                         except:
                             print 'function issue'
                             break
                             
                              
-             elif str(x) == '<Response [404]>':
+            elif str(x) == '<Response [404]>':
                     print 'Response [404]'
             
     except:
